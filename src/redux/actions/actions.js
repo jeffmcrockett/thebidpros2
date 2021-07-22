@@ -1,54 +1,98 @@
 import * as ActionTypes from "./actionTypes";
 import * as api from "../../api/api";
 
-export const loadRecipes = () => {
-  return function (dispatch) {
-    return recipeApi
-      .getRecipes()
-      .then((recipesFromApi) => dispatch(loadRecipesSuccess(recipesFromApi)))
-      .catch((error) => console.log(error));
-  };
+export const getEvents = () => {
+    return function (dispatch) {
+        return api
+            .getEvents()
+            .then((eventsFromApi) => dispatch(LOAD_EVENTS_SUCCESS(eventsFromApi)))
+            .catch((error) => console.log(error));
+    };
 }
 
-export const loadRecipesSuccess = (recipes) => {
-  return {
-    type: ActionTypes.LOAD_RECIPES_SUCCESS,
-    recipes,
-  };
+export const getItems = () => {
+    return function (dispatch) {
+        return api
+            .getItems()
+            .then((itemsFromApi) => dispatch(LOAD_ITEMS_SUCCESS(itemsFromApi)))
+            .catch((error) => console.log(error));
+    };
 }
 
-export const addRecipe = (recipe) => {
-  return function (dispatch) {
-    return api
-      .postRecipe(recipe)
-      .then((newRecipe) => dispatch(postRecipeSuccess(newRecipe)))
-      .catch((error) => console.log(error));
-  };
+export const getEventsSuccess = (events) => {
+    return {
+        type: ActionTypes.LOAD_EVENTS_SUCCESS,
+        events,
+    };
 }
 
-export const postRecipeSuccess = (recipe) => {
-  return {
-    type: ActionTypes.POST_RECIPES,
-    recipe,
-  };
+export const getItemsSuccess = (items) => {
+    return {
+        type: ActionTypes.LOAD_ITEMS_SUCCESS,
+        items,
+    };
 }
 
-export const deleteRecipe = (recipeId) => {
-  return function (dispatch) {
-    //connect to the outside - API
-    //start of the API call
-    return recipeApi
-    .deleteRecipe(recipeId) 
-    //end of the API call
-    .then(() => dispatch(deleteRecipeSuccess(recipeId))) //dispatch an action which is the deleteRecipeSuccess function
-    .catch((error) => console.log(error));//when the API cal was not successful
-  }
+export const addEvent = (event) => {
+    return function (dispatch) {
+        return api
+            .postEvent(event)
+            .then((newEvent) => dispatch(POST_EVENT_SUCCESS(newEvent)))
+            .catch((error) => console.log(error));
+    };
 }
 
-//is in charge of telling the store that the previous event was successful
-export const deleteRecipeSuccess = (recipeId) => {
-  return {
-    type: ActionTypes.DELETE_RECIPE_SUCCESS,
-    recipeId,
-  }
+export const addItem = (item) => {
+    return function (dispatch) {
+        return api
+            .postItem(item)
+            .then((newItem) => dispatch(POST_ITEM_SUCCESS(newItem)))
+            .catch((error) => console.log(error));
+    };
+}
+
+export const addEventSuccess = (event) => {
+    return {
+        type: ActionTypes.POST_EVENT,
+        event,
+    };
+}
+
+export const addItemSuccess = (item) => {
+    return {
+        type: ActionTypes.POST_ITEM,
+        item,
+    };
+}
+
+export const updateItem = (item) => {
+    return function (dispatch) {
+        return api
+            .putItem(item)
+            .then((updatedItem) => dispatch(UPDATE_ITEM_SUCCESS(updatedItem)))
+            .catch((error) => console.log(error));
+    };
+}
+
+export const updateItemSuccess = (item) => {
+    return {
+        type: ActionTypes.UPDATE_ITEM,
+        item,
+    };
+}
+
+export const deleteItem = (itemID) => {
+    return function (dispatch) {
+        return api
+            .deleteItem(itemId)
+            .then(() => dispatch(DELETE_ITEM_SUCCESS(itemID)))
+            .catch((error) => console.log(error));
+    }
+}
+
+export const deleteItemSuccess = (itemId) => {
+    return {
+        type: ActionTypes.DELETE_ITEM_SUCCESS,
+        itemId,
+    }
 }
