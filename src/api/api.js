@@ -1,6 +1,6 @@
 import { handleResponse, handleError } from "./apiFunctions";
 
-const url = "https://gmarecipebook.herokuapp.com/recipes";
+const url = "";
 
 export function getEvents() {
     return fetch(url).then(handleResponse).catch(handleError);
